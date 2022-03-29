@@ -1,6 +1,8 @@
 from platform import java_ver
 import random
 from telnetlib import NOP
+
+# Tipo de dato lista
 HANGMAN_PICS = ['''
   +---+
       |
@@ -47,6 +49,8 @@ HANGMAN_PICS = ['''
  /|\  |
  / \  |
      ===''']
+
+# Tipo de dato diccionario
 words = {'Colors': 'red orange yellow green blue indigo violet white black brown'.split(),
          'Shapes': 'square triangle rectangle circle ellipse rhombus trapazoid chevron pentagon hexagon septagon octogon'.split(),
          'Fruits': 'apple orange lemon lime pear watermelon grape grapefruit cherry banana cantalope mango strawberry tomato'.split(),
@@ -160,10 +164,11 @@ def playAgain():
 # PROGRAMA PRINCIPAL
 print('H A N G M A N')
 
-difficulty = 'X'
-while difficulty not in 'EMH':
+difficulty = 'X'  # Dato de tipo char
+while difficulty not in 'EMH':  # Verifica que el nivel seleccionado sea valido de acuerdo a si el caracter ingresado se encuentra en el string 'EMH'
     print('Enter difficulty: E - Easy, M - Medium, H - Hard')
     difficulty = input().upper()
+# A medida que sube la dificultad, se reduce la cantidad de imagenes que tiene el ahorcado, lo cual lo hace mas dificil, ya que usa la cantidad de imagenes de ese array para saber la cantidad de intentos restantes.
 if difficulty == 'M':
     del HANGMAN_PICS[8]
     del HANGMAN_PICS[7]
@@ -173,23 +178,29 @@ if difficulty == 'H':
     del HANGMAN_PICS[5]
     del HANGMAN_PICS[3]
 
-missedLetters = ''
+missedLetters = ''  # Datos de tipo string
 correctLetters = ''
-secretWord, secretSet = getRandomWord(words)
-gameIsDone = False
+
+# Funcion para obtener una clave del diccionario, y de esa clave, una palabra aleatoria del string correspondiente
+secretWord, secretSet = getRandomWord(words)  # Datos de tipo string
+
+gameIsDone = False  # Dato de tipo boolean
 
 while True:
+    # Funcion creada para las pistas
     arrojarPista(secretSet, secretWord)
+
+    # Funcion para mostrar en pantalla la palabra secreta, cuantas de sus letras fueron descubiertas, el estado del ahorcado, y las letras erroneas.
     displayBoard(missedLetters, correctLetters, secretWord)
 
-    # Let the player type in a letter.
+    # Funcion para adivinar una letra. Verifica si ya fue utilizada antes, y si es correcta o no. Corrobora que se escriba una sola letra.
     guess = getGuess(missedLetters + correctLetters)
 
     if guess in secretWord:
         correctLetters = correctLetters + guess
 
         # Check if the player has won
-        foundAllLetters = True
+        foundAllLetters = True  # Tipo de dato boolean
         for i in range(len(secretWord)):
             if secretWord[i] not in correctLetters:
                 foundAllLetters = False
@@ -199,7 +210,7 @@ while True:
                   secretWord + '"! You have won!')
             gameIsDone = True
     else:
-        missedLetters = missedLetters + guess
+        missedLetters = missedLetters + guess  # Tipo de dato string
 
         # Check if player has guessed too many times and lost.
         if len(missedLetters) == len(HANGMAN_PICS) - 1:
@@ -217,3 +228,6 @@ while True:
             secretWord, secretSet = getRandomWord(words)
         else:
             break
+
+
+# No se respeta la PEP8 ya que, por ejemplo, utiliza la camel case.
