@@ -1,4 +1,6 @@
+from platform import java_ver
 import random
+from telnetlib import NOP
 HANGMAN_PICS = ['''
   +---+
       |
@@ -49,6 +51,56 @@ words = {'Colors': 'red orange yellow green blue indigo violet white black brown
          'Shapes': 'square triangle rectangle circle ellipse rhombus trapazoid chevron pentagon hexagon septagon octogon'.split(),
          'Fruits': 'apple orange lemon lime pear watermelon grape grapefruit cherry banana cantalope mango strawberry tomato'.split(),
          'Animals': 'bat bear beaver cat cougar crab deer dog donkey duck eagle fish frog goat leech lion lizard monkey moose mouse otter owl panda python rabbit rat shark sheep skunk squid tiger turkey turtle weasel whale wolf wombat zebra'.split()}
+
+
+def arrojarPista(secretSet, secretWord):
+    match secretSet:
+        case 'Colors':
+            if(secretWord in 'red yellow blue'):
+                print('Es un color primario')
+            elif(secretWord in 'black brown indigo'):
+                print('Es un color oscuro')
+            elif(secretWord in 'yellow orange green violet'):
+                print('Es un color secundario')
+            elif(secretWord == 'white'):
+                print('Es un color muy claro')
+        case 'Shapes':
+            if(secretWord in 'square rectangle rhombus trapazoid'):
+                print('Es una figura con cuatro lados')
+            if(secretWord in 'circle ellipse'):
+                print('Es una figura sin lados')
+            if(secretWord in 'chevron pentagon hexagon septagon octogon'):
+                print('Es una figura con mas de cuatro lados')
+        case 'Fruits':
+            if(secretWord in 'orange lemon lime grapefruit'):
+                print('Es una fruta citrica')
+            elif(secretWord in 'apple cherry strawberry tomato'):
+                print('Es una fruta roja')
+            elif(secretWord in 'pear banana'):
+                print(
+                    'Es una fruta amarillenta, pero no necesariamente del color amarillo')
+            elif(secretWord in 'watermelon cantalope'):
+                print('Es una fruta redonda y grande')
+            elif(secretWord in 'grape'):
+                print('Es una fruta violeta')
+            elif(secretWord == 'mango'):
+                print('Es una fruta anaranjada')
+
+        case 'Animals':
+            if(secretWord in 'bat bear deer dog donkey goat monkey panda rabbit rat sheep  whale wolf zebra weasel wombat moose otter skunk'):
+                print('Es un animal mamifero')
+            elif(secretWord in 'cat cougar lion tiger'):
+                print('Es un animal felino')
+            elif(secretWord in 'beaver mouse'):
+                print('Es un animal roedor')
+            elif(secretWord in 'duck eagle turkey owl'):
+                print('Es un animal con plumas')
+            elif(secretWord in 'crab fish shark squid leech'):
+                print('Es un animal marino')
+            elif(secretWord in 'python lizard turtle'):
+                print('Es un animal reptil')
+            elif(secretWord == 'frog'):
+                print('Es un animal anfibio')
 
 
 def getRandomWord(wordDict):
@@ -105,6 +157,7 @@ def playAgain():
     return input().lower().startswith('y')
 
 
+# PROGRAMA PRINCIPAL
 print('H A N G M A N')
 
 difficulty = 'X'
@@ -126,7 +179,7 @@ secretWord, secretSet = getRandomWord(words)
 gameIsDone = False
 
 while True:
-    print('The secret word is in the set: ' + secretSet)
+    arrojarPista(secretSet, secretWord)
     displayBoard(missedLetters, correctLetters, secretWord)
 
     # Let the player type in a letter.
