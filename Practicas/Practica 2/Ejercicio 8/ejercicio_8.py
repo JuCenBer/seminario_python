@@ -8,6 +8,7 @@ for letra in palabra:
     for clave in tabla:
         if letra in clave:
             puntaje += tabla[clave]
+            # Para que no recorra el resto de claves una vez encontrada la letra.
             break
 
 print(f"El puntaje de la palabra {palabra} es: {puntaje}")
