@@ -9,6 +9,9 @@ mapa = []
 
 
 def verificacionCeldasAdyacente(celdas_fila, celda):
+    """Esta funcion recibe una fila y revisa si las celdas adyacentes a
+    una celda especifica tiene bombas o no. En caso afirmativo, suma 1 al
+    contador."""
     tot = 0
     if (celda - 1 >= 0) and (celdas_fila[celda - 1] == '*'):
         tot += 1
@@ -18,6 +21,10 @@ def verificacionCeldasAdyacente(celdas_fila, celda):
 
 
 def verificacionFilaAdyacente(fila, celda):
+    """Esta funcion recibe una fila superior o inferior a la fila que estoy
+    analizando y primero revisa si la celda que esta en la misma posicion
+    a la celda que estoy analizando es una bomba. Luego, pasa la fila
+    a otra funcion para analizar las celdas adyacentes"""
     tot = 0
     celdas_fila = list(fila)
     if ((celdas_fila[celda]) == '*'):
@@ -27,6 +34,8 @@ def verificacionFilaAdyacente(fila, celda):
 
 
 def armarMapa(mapa, fila_aux):
+    """Reune todos los elementos de una lista con caracteres y los agrega
+    a la lista mapa"""
     mapa.append(''.join(fila_aux))
 
 
