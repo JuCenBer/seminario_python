@@ -23,11 +23,22 @@ for estudiante in range(len(nombres1)):
 
 prom = total/len(nombres1)
 print(f'La nota promedio del total de notas es: {prom}')
-print('Los alumnos que obtuvieron una nota total menor l promedio son: ')
-i = 0
-print('   Nombre\tNota')
+estudiantes_bajo_promedio = {}
 for estudiante in estudiantes:
     if(estudiantes[estudiante] < prom):
+        estudiantes_bajo_promedio[estudiante] = estudiantes[estudiante]
+
+if(len(estudiantes_bajo_promedio) >= 1):
+    print('Los alumnos que obtuvieron una nota total menor que el promedio total de notas son: ')
+    i = 0
+    print('   Nombre\tNota')
+    for estudiante in estudiantes_bajo_promedio:
         print(
             f'{i}  {estudiante}\t{estudiantes[estudiante]:<10}')
         i += 1
+else:
+    print("Ningun estudiante tuvo una nota menor que el promedio total de notas.")
+
+archivo_eval1.close()
+archivo_eval2.close()
+archivo_nombres1.close()
